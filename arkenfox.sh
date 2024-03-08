@@ -6,18 +6,6 @@ set -e
 # uncomment to enable debug output
 #set -x
 
-# exit if snap not installed
-if ! command -v snap &> /dev/null; then
-    echo "Error: snap is not installed. Please install snap to use this script. Exiting."
-    exit 1
-fi
-
-# exit if snap firefox not installed
-if ! snap list | grep -q firefox; then
-    echo "Error: Snap Firefox is not installed. Please install Snap Firefox to use this script."
-    exit 1
-fi
-
 # get profile name as arguement
 profile=$1
 
@@ -34,8 +22,7 @@ if [ -z "$profile" ]; then
 fi
 
 # exit if given profile already exists
-# debian path: ~/.mozilla/firefox/*$profile
-if [ -d ~/snap/firefox/common/.mozilla/firefox/*$profile ]; then
+if [ -d ~/.mozilla/firefox/*$profile ]; then
     echo "There is already a profile titled as $profile exists. Exiting."
     exit 1
 fi
@@ -75,11 +62,11 @@ sleep 6
 pkill firefox
 sleep 1
 
-profile_dir=$(basename $(ls -d ~/snap/firefox/common/.mozilla/firefox/*$profile))
+profile_dir=$(basename $(ls -d ~/.mozilla/firefox/*$profile))
 
 cd user.js-$latest_release_ver/
-cp -i prefsCleaner.sh updater.sh user.js ~/snap/firefox/common/.mozilla/firefox/*$profile_dir
-cd ~/snap/firefox/common/.mozilla/firefox/*$profile_dir
+cp -i prefsCleaner.sh updater.sh user.js ~/.mozilla/firefox/*$profile_dir
+cd ~/.mozilla/firefox/*$profile_dir
 echo 'user_pref("keyword.enabled", true);
 user_pref("media.peerconnection.enabled", false);
 user_pref("privacy.resistFingerprinting.letterboxing", false);' >> user-overrides.js
