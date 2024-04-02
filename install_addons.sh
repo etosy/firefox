@@ -3,6 +3,9 @@
 # Exit if error occurs
 set -e
 
+# load common functions
+source common-functions.sh
+
 # Directory containing add-on XPI files
 temp_dir="temp"
 firefox_root_path="$HOME/.mozilla/firefox"
@@ -46,12 +49,12 @@ if [ ${#missing_packages[@]} -gt 0 ]; then
 fi
 
 # Exit if no profile name is given
-if [ -z "$profile" ]; then
+while [ -z "$profile" ]; do 
   echo "Error: Profile name not provided."
-  echo "Firefox profiles you already have:-"
-  find $firefox_root_path -maxdepth 1 -type d -name '*.*' | grep -v '^.$' | awk -F '.' '{print $NF}'
+  list_firefox_profiles
   exit 1
-fi
+  read -p "Enter profile name: " profile
+done
 
 # Exit if Firefox root directory does not exist
 if [ ! -d "$firefox_root_path" ]; then
