@@ -1,5 +1,3 @@
-#!/bin/bash
-
 MAX_ATTEMPTS=3
 attempts=0
 ping_site="google.com"
@@ -10,12 +8,15 @@ print_color() {
     case "$color" in
         "green") echo -e "\e[32m$message\e[0m";;  # Green color
         "red") echo -e "\e[31m$message\e[0m";;    # Red color
-        *) echo "$message";;
+        *) echo -n "$message";;
     esac
 }
 
+echo -n "Checking internet connection..."
+
 while (( attempts < MAX_ATTEMPTS )); do
     if ping -c 1 $ping_site > /dev/null 2>&1; then
+        echo
         print_color "green" "Internet connection is available. Continuing..."
         # Your script continues here...
         exit 0
