@@ -1,3 +1,7 @@
+#!/bin/bash
+
+echo
+
 MAX_ATTEMPTS=3
 attempts=0
 ping_site="google.com"

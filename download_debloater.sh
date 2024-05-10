@@ -1,11 +1,16 @@
 #! /bin/bash
 
-latest_release_ver=$(curl -sL $arkenfox_release_url | grep -oE '[0-9]+\.[0-9]+' | sed -n '1p')
+source config.sh
 
-url="github.com/arkenfox/user.js/archive/refs/tags/$latest_release_ver.tar.gz"
+echo
+echo -n "Getting debloater latest release version..."
+debloater_latest_release_version=$(curl -sL $debloater_release_page_url | grep -oE '[0-9]+\.[0-9]+' | sed -n '1p')
+echo
+debloater_download_url="github.com/arkenfox/user.js/archive/refs/tags/$debloater_latest_release_version.tar.gz"
+debloater_tar_file_name=$(basename "$debloater_download_url")
 
-tar_file=$(basename "$url")
+echo -e "\nDownloading debloater tar file..."
+curl -O -L $debloater_download_url
 
-curl -O -s -L $url
-
-tar -xf $tar_file
+echo -e "\nExtracting debloater tar file..."
+tar -xvf $debloater_tar_file_name

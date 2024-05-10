@@ -43,23 +43,9 @@ while [ -z "$profile" ]; do
     fi
 done
 
-echo
 bash check_internet.sh
 
-echo
-echo -n "Getting latest release version..."
-latest_release_ver=$(curl -sL $arkenfox_release_url | grep -oE '[0-9]+\.[0-9]+' | sed -n '1p')
-
-url="github.com/arkenfox/user.js/archive/refs/tags/$latest_release_ver.tar.gz"
-
-tar_file=$(basename "$url")
-
-echo
-echo -e "\nDownloading file..."
-curl -O -L $url
-
-echo -e "\nExtracting downloaded tar file..."
-tar -xvf $tar_file
+bash download_debloater.sh
 
 echo
 echo -n "Creating firefox profile.."
@@ -80,18 +66,18 @@ echo
 
 profile_dir=$(basename $(ls -d ~/.mozilla/firefox/*$profile))
 
-cd user.js-$latest_release_ver/
+cd $working_dir/$debloater_dir
 cp -i prefsCleaner.sh updater.sh user.js ~/.mozilla/firefox/*$profile_dir
 cd ~/.mozilla/firefox/*$profile_dir
 cp -i $BASEDIR/user-overrides.js ./
 
 echo
-echo -n "Running updater.sh script..."
+echo -n "Running debloater script..."
 bash updater.sh -u -s >> /dev/null
 echo
 
 echo
-echo -n "Running prefsCleaner.sh script..."
+echo -n "Running debloater cleanup script..."
 bash prefsCleaner.sh -s >> /dev/null
 echo
 
