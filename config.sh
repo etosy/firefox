@@ -1,5 +1,5 @@
 working_dir="temp"
-debloater_dir="arkenfox"
+debloater_dir="user*"
 firefox_download_link="https://download.mozilla.org/?product=firefox-latest&os=linux61&lang=en-US"
 icon_path="$HOME/.local/share/applications/firefox.desktop"
 firefox_root_path="$HOME/.mozilla/firefox"

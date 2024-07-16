@@ -4,7 +4,7 @@
 set -e
 
 # load common functions
-source common-functions.sh
+source common_functions.sh
 
 # Directory containing add-on XPI files
 temp_dir="temp"

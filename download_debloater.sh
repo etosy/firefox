@@ -9,6 +9,9 @@ echo
 debloater_download_url="github.com/arkenfox/user.js/archive/refs/tags/$debloater_latest_release_version.tar.gz"
 debloater_tar_file_name=$(basename "$debloater_download_url")
 
+mkdir $working_dir
+cd $working_dir
+
 echo -e "\nDownloading debloater tar file..."
 curl -O -L $debloater_download_url
 

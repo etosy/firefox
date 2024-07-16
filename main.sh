@@ -1,5 +1,5 @@
 #! bin/bash
 
-bash remove-bloat.sh $1
-bash download-extension.sh
-bash install-addons.sh $1
+bash remove_bloat.sh $1
+bash download_extension.sh
+bash install_addons.sh $1
