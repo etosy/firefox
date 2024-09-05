@@ -19,7 +19,8 @@ print_color() {
 echo "Checking internet connection..."
 
 while (( attempts < MAX_ATTEMPTS )); do
-    if ping -c 1 $ping_site > $log_file_path 2>&1; then
+    # > $log_file_path 2>&1
+    if ping -c 1 $ping_site; then
         print_color "green" "Internet connection is available. Continuing..."
         exit 0
     else
