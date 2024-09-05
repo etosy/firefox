@@ -1,10 +1,10 @@
 #!/bin/bash
 
-echo
+source config.sh
 
 MAX_ATTEMPTS=3
 attempts=0
-ping_site="google.com"
+ping_site="example.com"
 
 print_color() {
     color="$1"
@@ -16,13 +16,11 @@ print_color() {
     esac
 }
 
-echo -n "Checking internet connection..."
+echo "Checking internet connection..."
 
 while (( attempts < MAX_ATTEMPTS )); do
-    if ping -c 1 $ping_site > /dev/null 2>&1; then
-        echo
+    if ping -c 1 $ping_site > $log_file_path 2>&1; then
         print_color "green" "Internet connection is available. Continuing..."
-        # Your script continues here...
         exit 0
     else
         (( attempts++ ))
