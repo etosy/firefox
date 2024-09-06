@@ -4,7 +4,7 @@ source config.sh
 
 MAX_ATTEMPTS=3
 attempts=0
-ping_site="example.com"
+ping_site="archlinux.org"
 
 print_color() {
     color="$1"

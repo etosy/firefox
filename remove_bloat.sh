@@ -7,6 +7,8 @@ source config.sh
 # exit if error occurs
 set -e
 
+profile=$(head /dev/urandom | tr -dc 'A-Za-z' | head -c 8)
+echo "Profile name: $profile"
 
 
 # this case handled
@@ -74,7 +76,8 @@ if [ ! -d "$working_dir" ]; then
     touch $log_file_path
 fi
 
-get_profile_name
+
+#get_profile_name
 create_profile
 bash download_debloater.sh
 
@@ -83,7 +86,7 @@ profile_dir=$(basename $(ls -d ~/.mozilla/firefox/*$profile))
 cp -i $working_dir/$debloater_dir/prefsCleaner.sh  ~/.mozilla/firefox/*$profile_dir
 cp -i $working_dir/$debloater_dir/updater.sh ~/.mozilla/firefox/*$profile_dir
 cp -i $working_dir/$debloater_dir/user.js ~/.mozilla/firefox/*$profile_dir
-cp -i $BASEDIR/user-overrides.js ~/.mozilla/firefox/*$profile_dir
+#cp -i $BASEDIR/user-overrides.js ~/.mozilla/firefox/*$profile_dir
 
 echo "Running debloater script..."
 bash ~/.mozilla/firefox/*$profile_dir/updater.sh -u -s # >> $log_file_path
