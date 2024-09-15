@@ -6,14 +6,17 @@ set -e
 sudo test || true
 
 CUR_DIR="$(pwd)"
-SCRIPT_PATH=$(dirname "$(realpath "$0")")
 
-cd $SCRIPT_PATH
-source config.sh
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
+BASE_DIR=$SCRIPT_DIR
 
+source $BASE_DIR/config.sh
 
 get_profile_name() {
+
+  return $(head /dev/urandom | tr -dc 'A-Za-z' | head -c 8)
+
   # get profile name as arguement
   profile=$1
 
@@ -75,11 +78,10 @@ if [ ! -d "$working_dir" ]; then
     touch $log_file_path
 fi
 
-profile=$(head /dev/urandom | tr -dc 'A-Za-z' | head -c 8)
+
+
+profile=get_profile_name
 echo "Profile name: $profile"
-
-
-#get_profile_name
 create_profile
 
 ./download_debloater.sh
