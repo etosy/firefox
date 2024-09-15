@@ -1,14 +1,17 @@
-#!/bin/bash
+#!/bin/sh
 # firefox profile bloatware removal
 
-# exit if error occurs
 set -e
-PROJECT_ROOT=$(dirname "$(realpath "$0")")
 
-source $PROJECT_ROOT/config.sh
+sudo test || true
 
-profile=$(head /dev/urandom | tr -dc 'A-Za-z' | head -c 8)
-echo "Profile name: $profile"
+CUR_DIR="$(pwd)"
+SCRIPT_PATH=$(dirname "$(realpath "$0")")
+
+cd $SCRIPT_PATH
+source config.sh
+
+
 
 get_profile_name() {
   # get profile name as arguement
@@ -65,28 +68,35 @@ create_profile() {
   sleep 1
 }
 
+######################## Start Here ##################################
+
 if [ ! -d "$working_dir" ]; then
     mkdir $working_dir
     touch $log_file_path
 fi
 
+profile=$(head /dev/urandom | tr -dc 'A-Za-z' | head -c 8)
+echo "Profile name: $profile"
+
 
 #get_profile_name
 create_profile
-bash download_debloater.sh
+
+./download_debloater.sh
 
 profile_dir=$(basename $(ls -d ~/.mozilla/firefox/*$profile))
 
-cp -i $working_dir/$debloater_dir/prefsCleaner.sh  ~/.mozilla/firefox/*$profile_dir
-cp -i $working_dir/$debloater_dir/updater.sh ~/.mozilla/firefox/*$profile_dir
-cp -i $working_dir/$debloater_dir/user.js ~/.mozilla/firefox/*$profile_dir
+cd $working_dir/$debloater_dir
+cp -i prefsCleaner.sh  ~/.mozilla/firefox/*$profile_dir
+cp -i updater.sh ~/.mozilla/firefox/*$profile_dir
+cp -i user.js ~/.mozilla/firefox/*$profile_dir
 #cp -i $BASEDIR/user-overrides.js ~/.mozilla/firefox/*$profile_dir
 
-echo "Running debloater script..."
-bash ~/.mozilla/firefox/*$profile_dir/updater.sh -u -s # >> $log_file_path
-
-echo "Running debloater cleanup script..."
-bash ~/.mozilla/firefox/*$profile_dir/prefsCleaner.sh -s # >> $log_file_path
+cd ~/.mozilla/firefox/*$profile_dir
+./updater.sh -u -s # >> $log_file_path
+./prefsCleaner.sh -s # >> $log_file_path
 
 echo "Starting firefox..."
 firefox -p $profile >> $log_file_path 2>&1 &
+
+cd $CUR_DIR
