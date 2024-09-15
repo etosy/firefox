@@ -1,20 +1,14 @@
 #!/bin/bash
-
 # firefox profile bloatware removal
-
-source config.sh
 
 # exit if error occurs
 set -e
+PROJECT_ROOT=$(dirname "$(realpath "$0")")
+
+source $PROJECT_ROOT/config.sh
 
 profile=$(head /dev/urandom | tr -dc 'A-Za-z' | head -c 8)
 echo "Profile name: $profile"
-
-
-# this case handled
-# if [ ! -f "$log_file_path" ]; then
-#     touch $log_file_path
-# fi
 
 get_profile_name() {
   # get profile name as arguement
