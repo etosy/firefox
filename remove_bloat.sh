@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # firefox profile bloatware removal
 
 set -e
