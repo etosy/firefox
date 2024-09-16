@@ -15,7 +15,8 @@ source $BASE_DIR/config.sh
 
 get_profile_name() {
 
-  return $(head /dev/urandom | tr -dc 'A-Za-z' | head -c 8)
+  echo $(head /dev/urandom | tr -dc 'A-Za-z' | head -c 8)
+  return 
 
   # get profile name as arguement
   profile=$1
@@ -80,7 +81,7 @@ fi
 
 
 
-profile=get_profile_name
+profile=$(get_profile_name)
 echo "Profile name: $profile"
 create_profile
 
