@@ -2,6 +2,12 @@
 
 set -e
 
+# Check if curl is installed
+if ! command -v curl &> /dev/null; then
+    echo "Error: curl is not installed."
+    exit 1
+fi
+
 sudo test || true
 
 CUR_DIR="$(pwd)"
@@ -9,8 +15,6 @@ BASE_DIR=
 source config.sh
 
 bash check_internet.sh
-
-sudo apt install curl -y
 
 debloater_latest_release_version=$(curl -sL $debloater_release_page_url | grep -oE '[0-9]+\.[0-9]+' | sed -n '1p')
 echo "latest release version: $debloater_latest_release_version"
