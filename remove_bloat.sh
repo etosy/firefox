@@ -98,7 +98,9 @@ cd ~/.mozilla/firefox/*$profile_dir
 ./updater.sh -u -s # >> $log_file_path
 ./prefsCleaner.sh -s # >> $log_file_path
 
-echo "Starting firefox..."
-firefox -p $profile >> $log_file_path 2>&1 &
+# echo "Starting firefox..."
+# firefox -p $profile >> $log_file_path 2>&1 &
 
 cd $CUR_DIR
+
+echo "firefox bloat removed"
