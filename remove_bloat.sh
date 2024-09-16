@@ -84,7 +84,7 @@ profile=get_profile_name
 echo "Profile name: $profile"
 create_profile
 
-./download_debloater.sh
+bash download_debloater.sh
 
 profile_dir=$(basename $(ls -d ~/.mozilla/firefox/*$profile))
 
