@@ -3,6 +3,12 @@
 
 set -e
 
+# Check if curl is installed
+if ! command -v curl &> /dev/null; then
+    echo "Error: curl is not installed."
+    exit 1
+fi
+
 sudo test || true
 
 CUR_DIR="$(pwd)"
