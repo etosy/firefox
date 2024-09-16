@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -8,7 +8,7 @@ CUR_DIR="$(pwd)"
 BASE_DIR=
 source config.sh
 
-./check_internet.sh
+bash check_internet.sh
 
 debloater_latest_release_version=$(curl -sL $debloater_release_page_url | grep -oE '[0-9]+\.[0-9]+' | sed -n '1p')
 echo "latest release version: $debloater_latest_release_version"
