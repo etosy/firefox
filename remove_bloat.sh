@@ -67,7 +67,7 @@ get_profile_name() {
 
 create_profile() {
   echo "Creating firefox profile.."
-  firefox --CreateProfile $profile # >> $log_file_path 2>&1
+  firefox --headless --CreateProfile $profile # >> $log_file_path 2>&1
 
   echo "Running firefox in headless mode..."
   firefox -offline --headless -p $profile &>> $log_file_path &
