@@ -4,7 +4,7 @@ source config.sh
 
 MAX_ATTEMPTS=3
 attempts=0
-ping_site="archlinux.org"
+ping_address="1.1.1.1"
 
 print_color() {
     color="$1"
@@ -20,7 +20,7 @@ echo "Checking internet connection..."
 
 while (( attempts < MAX_ATTEMPTS )); do
     # > $log_file_path 2>&1
-    if ping -c 1 $ping_site; then
+    if ping -c 1 $ping_address; then
         print_color "green" "Internet connection is available. Continuing..."
         exit 0
     else
