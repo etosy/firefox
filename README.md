@@ -1,2 +1,2 @@
-# Firefox Browser Debloater
+# Scripts for firefox
 scripts for firefox installation, bloat removal, auto addon install etc...
